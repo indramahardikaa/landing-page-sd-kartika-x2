@@ -6,7 +6,7 @@ import { signOut } from "next-auth/react"
 import { useState } from "react"
 import {
   FiHome, FiFileText, FiUsers, FiGrid, FiStar,
-  FiMail, FiSettings, FiLogOut, FiMenu, FiX
+  FiMail, FiSettings, FiLogOut, FiMenu, FiX, FiClock
 } from "react-icons/fi"
 
 interface SidebarProps {
@@ -21,6 +21,7 @@ export default function DashboardSidebar({ user }: SidebarProps) {
   const menuItems = [
     { href: "/dashboard", label: "Dashboard", icon: FiHome, roles: ["admin", "guru"] },
     { href: "/dashboard/berita", label: "Berita", icon: FiFileText, roles: ["admin", "guru"] },
+    { href: "/dashboard/ppdb", label: "PPDB Countdown", icon: FiClock, roles: ["admin", "guru"] },
     { href: "/dashboard/staff", label: "Guru & Staff", icon: FiUsers, roles: ["admin"] },
     { href: "/dashboard/fasilitas", label: "Fasilitas", icon: FiGrid, roles: ["admin"] },
     { href: "/dashboard/ekstrakurikuler", label: "Ekstrakurikuler", icon: FiStar, roles: ["admin"] },
