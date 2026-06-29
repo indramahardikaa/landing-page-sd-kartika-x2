@@ -2,9 +2,12 @@ import { prisma } from "@/lib/prisma"
 import Image from "next/image"
 
 export default async function FasilitasPage() {
-  const facilities = await prisma.facility.findMany({
-    orderBy: { createdAt: "asc" },
-  })
+  let facilities: any[] = []
+  try {
+    facilities = await prisma.facility.findMany({ orderBy: { createdAt: "asc" } })
+  } catch (error) {
+    console.error("Database error:", error)
+  }
 
   const emojis = ['&#128218;', '&#128187;', '&#9978;', '&#9917;', '&#127963;', '&#127828;', '&#128214;', '&#127931;']
   const gradients = [

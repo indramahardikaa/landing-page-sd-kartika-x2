@@ -4,11 +4,16 @@ import Link from "next/link"
 import { FiBookOpen, FiArrowRight } from "react-icons/fi"
 
 export default async function BeritaPage() {
-  const news = await prisma.news.findMany({
-    where: { published: true },
-    orderBy: { createdAt: "desc" },
-    include: { author: { select: { name: true } } },
-  })
+  let news: any[] = []
+  try {
+    news = await prisma.news.findMany({
+      where: { published: true },
+      orderBy: { createdAt: "desc" },
+      include: { author: { select: { name: true } } },
+    })
+  } catch (error) {
+    console.error("Database error:", error)
+  }
 
   return (
     <>

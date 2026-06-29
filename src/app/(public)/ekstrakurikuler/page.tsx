@@ -2,9 +2,12 @@ import { prisma } from "@/lib/prisma"
 import Image from "next/image"
 
 export default async function EkstrakurikulerPage() {
-  const extracurriculars = await prisma.extracurricular.findMany({
-    orderBy: { createdAt: "asc" },
-  })
+  let extracurriculars: any[] = []
+  try {
+    extracurriculars = await prisma.extracurricular.findMany({ orderBy: { createdAt: "asc" } })
+  } catch (error) {
+    console.error("Database error:", error)
+  }
 
   const emojis = ['&#127926;', '&#127988;', '&#9917;', '&#128131;', '&#9978;', '&#127928;']
   const gradients = [

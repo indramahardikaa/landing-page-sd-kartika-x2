@@ -2,8 +2,13 @@ import { prisma } from "@/lib/prisma"
 import Image from "next/image"
 
 export default async function ProfilPage() {
-  const profiles = await prisma.schoolProfile.findMany()
-  const getProfile = (key: string) => profiles.find(p => p.key === key)?.value || ""
+  let profiles: any[] = []
+  try {
+    profiles = await prisma.schoolProfile.findMany()
+  } catch (error) {
+    console.error("Database error:", error)
+  }
+  const getProfile = (key: string) => profiles.find((p: any) => p.key === key)?.value || ""
 
   let misi: string[] = []
   try { misi = JSON.parse(getProfile("misi")) } catch { misi = [] }
