@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB"/>
+      <stop offset="100%" style="stop-color:#E0F7FA"/>
+    </linearGradient>
+  </defs>
+  <rect fill="url(#sky)" width="1440" height="600"/>
+  <!-- Sun -->
+  <circle cx="1200" cy="100" r="60" fill="#FFD700" opacity="0.9"/>
+  <!-- Clouds -->
+  <ellipse cx="200" cy="80" rx="80" ry="30" fill="white" opacity="0.8"/>
+  <ellipse cx="260" cy="70" rx="60" ry="25" fill="white" opacity="0.8"/>
+  <ellipse cx="700" cy="120" rx="90" ry="35" fill="white" opacity="0.7"/>
+  <ellipse cx="770" cy="110" rx="70" ry="28" fill="white" opacity="0.7"/>
+  <!-- Ground -->
+  <rect y="450" width="1440" height="150" fill="#4CAF50"/>
+  <rect y="440" width="1440" height="20" fill="#66BB6A" rx="10"/>
+  <!-- School Building -->
+  <rect x="500" y="250" width="440" height="200" fill="#FFF9C4" stroke="#F9A825" stroke-width="3" rx="5"/>
+  <rect x="680" y="370" width="80" height="80" fill="#8D6E63" rx="3"/>
+  <circle cx="740" cy="410" r="5" fill="#FFD700"/>
+  <!-- Windows -->
+  <rect x="540" y="290" width="50" height="50" fill="#81D4FA" stroke="#0288D1" stroke-width="2" rx="3"/>
+  <rect x="620" y="290" width="50" height="50" fill="#81D4FA" stroke="#0288D1" stroke-width="2" rx="3"/>
+  <rect x="770" y="290" width="50" height="50" fill="#81D4FA" stroke="#0288D1" stroke-width="2" rx="3"/>
+  <rect x="850" y="290" width="50" height="50" fill="#81D4FA" stroke="#0288D1" stroke-width="2" rx="3"/>
+  <!-- Roof -->
+  <polygon points="480,250 720,150 960,250" fill="#F44336"/>
+  <rect x="690" y="130" width="60" height="30" fill="#FFEB3B" stroke="#F9A825" stroke-width="2"/>
+  <!-- Flag -->
+  <rect x="710" y="100" width="3" height="60" fill="#795548"/>
+  <rect x="713" y="100" width="30" height="20" fill="#F44336"/>
+  <!-- Trees -->
+  <circle cx="350" cy="380" r="50" fill="#388E3C"/>
+  <rect x="345" y="400" width="10" height="50" fill="#5D4037"/>
+  <circle cx="1100" cy="380" r="50" fill="#388E3C"/>
+  <rect x="1095" y="400" width="10" height="50" fill="#5D4037"/>
+  <!-- Children -->
+  <circle cx="400" cy="430" r="12" fill="#FFCCBC"/>
+  <rect x="393" y="442" width="14" height="20" fill="#2196F3" rx="3"/>
+  <circle cx="450" cy="435" r="12" fill="#FFCCBC"/>
+  <rect x="443" y="447" width="14" height="20" fill="#E91E63" rx="3"/>
+  <circle cx="1000" cy="430" r="12" fill="#FFCCBC"/>
+  <rect x="993" y="442" width="14" height="20" fill="#4CAF50" rx="3"/>
+</svg>
