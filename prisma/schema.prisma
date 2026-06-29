@@ -12,12 +12,12 @@ model User {
   name      String
   email     String   @unique
   password  String
-  role      String   @default("guru") // "admin" or "guru"
+  role      String   @default("guru")
   image     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  news      News[]
+  news          News[]
   announcements Announcement[]
 }
 
@@ -40,7 +40,7 @@ model Staff {
   image     String?
   quote     String?
   order     Int      @default(0)
-  category  String   @default("guru") // "guru" or "staff"
+  category  String   @default("guru")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -68,6 +68,9 @@ model Announcement {
   title       String
   content     String
   isActive    Boolean  @default(true)
+  priority    String   @default("normal")
+  startDate   DateTime?
+  endDate     DateTime?
   authorId    String
   author      User     @relation(fields: [authorId], references: [id])
   createdAt   DateTime @default(now())
@@ -92,11 +95,55 @@ model SchoolProfile {
 }
 
 model Banner {
-  id        String   @id @default(cuid())
-  title     String?
-  image     String
-  isActive  Boolean  @default(true)
-  order     Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(cuid())
+  title       String?
+  subtitle    String?
+  image       String
+  link        String?
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PPDBRegistration {
+  id              String   @id @default(cuid())
+  studentName     String
+  birthPlace      String
+  birthDate       String
+  gender          String
+  religion        String
+  address         String
+  fatherName      String
+  motherName      String
+  guardianPhone   String
+  guardianEmail   String?
+  previousSchool  String?
+  status          String   @default("pending")
+  notes           String?
+  academicYear    String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model MenuItem {
+  id          String   @id @default(cuid())
+  label       String
+  href        String
+  icon        String?
+  parentId    String?
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  isExternal  Boolean  @default(false)
+  location    String   @default("navbar")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SiteSettings {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+  category    String   @default("general")
+  updatedAt   DateTime @updatedAt
 }

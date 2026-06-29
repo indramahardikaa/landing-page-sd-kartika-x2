@@ -32,22 +32,23 @@ async function main() {
 
   // Create staff data
   const staffData = [
-    { name: 'L. Femmy Saroinsong, S.Pd.', position: 'Kepala Sekolah', category: 'guru', order: 1, quote: 'Sebagai pemimpin pendidikan, peran kita bukan sekadar mengatur, tetapi menjadi panutan, penyemangat, dan penjaga arah perubahan yang bermakna' },
-    { name: 'Wahyudi, S.Pd.', position: 'Wakil Kepala Sekolah / Guru Kelas / Wali Kelas VI A', category: 'guru', order: 2, quote: 'Pendidikan adalah lentera yang menerangi jalan menuju masa depan' },
+    { name: 'L. Femmy Saroinsong, S.Pd.', position: 'Kepala Sekolah', category: 'guru', order: 1, quote: 'Sebagai pemimpin pendidikan, peran kita bukan sekadar mengatur, tetapi menjadi panutan' },
+    { name: 'Wahyudi, S.Pd.', position: 'Wakil Kepala Sekolah / Wali Kelas VI A', category: 'guru', order: 2, quote: 'Pendidikan adalah lentera yang menerangi jalan menuju masa depan' },
     { name: 'Samadi, S.Pd.', position: 'Guru Kelas / Wali Kelas II A', category: 'guru', order: 3 },
     { name: 'Achmad Sjaefudin, S.Pd.', position: 'Guru PJOK Kelas IV, V, VI', category: 'guru', order: 4 },
-    { name: 'H. Bahrudin, S.Pdi.', position: 'Guru PAIPB Kelas I, II, III', category: 'guru', order: 5, quote: 'Menjadi guru berarti menanam dengan sabar, menyiram dengan cinta, dan memanen generasi yang siap menghadapi masa depan' },
+    { name: 'H. Bahrudin, S.Pdi.', position: 'Guru PAIPB Kelas I, II, III', category: 'guru', order: 5 },
     { name: 'Siti Munawaroh, S.Pd.', position: 'Guru Kelas / Wali Kelas III B', category: 'guru', order: 6, quote: 'Guru adalah awal dari segala pencapaian besar' },
-    { name: 'Pujiningsih, S.Pd.', position: 'Guru Kelas / Wali Kelas VI B / Guru Bahasa Inggris', category: 'guru', order: 7 },
+    { name: 'Pujiningsih, S.Pd.', position: 'Guru Kelas / Wali Kelas VI B', category: 'guru', order: 7 },
     { name: 'Imaniah, S.Pd.', position: 'Guru Kelas / Wali Kelas V B', category: 'guru', order: 8 },
     { name: 'Rono Junaedi, S.Pd.', position: 'Guru PJOK Kelas I, II, III', category: 'guru', order: 9 },
-    { name: 'Titik Hardini, S.Pd.', position: 'Guru Kelas / Wali Kelas II B / Guru Bahasa Inggris', category: 'guru', order: 10, quote: 'Di setiap kata yang diajarkan, tersimpan doa dan harapan agar anak-anak tumbuh menjadi pribadi yang kuat dan berkarakter' },
+    { name: 'Titik Hardini, S.Pd.', position: 'Guru Kelas / Wali Kelas II B', category: 'guru', order: 10 },
+
     { name: 'Agus Wibowo, S.Pd.', position: 'Guru Kelas V', category: 'guru', order: 11 },
-    { name: 'Dyah Ayu Wulansari, S.Pd.', position: 'Guru Kelas / Wali Kelas I B', category: 'guru', order: 12, quote: 'Menjadi guru bukan sekadar mengajar membaca dan berhitung, tetapi menuntun hati-hati kecil agar tumbuh dengan cinta, rasa ingin tahu, dan keberanian bermimpi' },
+    { name: 'Dyah Ayu Wulansari, S.Pd.', position: 'Guru Kelas / Wali Kelas I B', category: 'guru', order: 12 },
     { name: 'Damai P. Sandroto, S.Th', position: 'Guru PAKPB Kelas I - VI', category: 'guru', order: 13 },
-    { name: 'Irma Indriyani, S.Pd.', position: 'Guru Kelas / Wali Kelas IV B', category: 'guru', order: 14, quote: 'Guru adalah pelita sabar yang setia menuntun dari langkah pertama hingga mereka siap terbang' },
-    { name: 'Siti Su\'udah, S.Pdi.', position: 'Guru Agama Islam Kelas IV, V, VI / Wali Kelas V A', category: 'guru', order: 15, quote: 'Guru bukan hanya penyampai ilmu, tapi penjaga harapan, penuntun langkah, dan pelita di awal perjalanan seorang anak' },
-    { name: 'Astri Theodora W, S.Pd.', position: 'Guru Kelas / Wali Kelas III A', category: 'guru', order: 16, quote: 'Di tangan seorang guru, langkah pertama anak-anak menjadi pijakan kuat untuk masa depan' },
+    { name: 'Irma Indriyani, S.Pd.', position: 'Guru Kelas / Wali Kelas IV B', category: 'guru', order: 14 },
+    { name: "Siti Su'udah, S.Pdi.", position: 'Guru Agama Islam Kelas IV, V, VI', category: 'guru', order: 15 },
+    { name: 'Astri Theodora W, S.Pd.', position: 'Guru Kelas / Wali Kelas III A', category: 'guru', order: 16 },
     { name: 'Mulyati, M.Pd. S.Pd.', position: 'Guru Kelas / Wali Kelas I A', category: 'guru', order: 17 },
     { name: 'Dimas Gilang Pangestu', position: 'Guru Kelas / Wali Kelas IV A', category: 'guru', order: 18 },
     { name: 'Kushestiningtyas Novita, S.E', position: 'Guru Komputer Kelas I - VI', category: 'guru', order: 19 },
@@ -93,11 +94,12 @@ async function main() {
     await prisma.extracurricular.create({ data: e })
   }
 
+
   // Create news
   const newsData = [
-    { title: 'Pelaksanaan Olimpiade O2SN', content: 'Olimpiade Olahraga Siswa Nasional (O2SN) adalah ajang bergengsi yang menumbuhkan semangat sportivitas, disiplin, dan prestasi siswa melalui kompetisi sehat di bidang olahraga. SD Kartika X-2 berpartisipasi aktif dalam kegiatan ini untuk mengembangkan bakat olahraga siswa.', published: true, authorId: admin.id },
-    { title: 'Peringatan Hari Kartini 2025', content: 'SD Kartika X-2 memperingati Hari Kartini dengan berbagai kegiatan edukatif yang bertema kesetaraan dan semangat belajar. Siswa-siswi mengenakan pakaian adat dan mengikuti lomba-lomba yang menarik.', published: true, authorId: admin.id },
-    { title: 'Kegiatan Literasi Sekolah', content: 'Program literasi sekolah terus berjalan dengan baik. Siswa diajak untuk gemar membaca dan menulis melalui berbagai kegiatan kreatif di perpustakaan.', published: true, authorId: guru.id },
+    { title: 'Pelaksanaan Olimpiade O2SN', content: 'Olimpiade Olahraga Siswa Nasional (O2SN) adalah ajang bergengsi yang menumbuhkan semangat sportivitas dan prestasi siswa melalui kompetisi di bidang olahraga.', published: true, authorId: admin.id },
+    { title: 'Peringatan Hari Kartini 2025', content: 'SD Kartika X-2 memperingati Hari Kartini dengan berbagai kegiatan edukatif yang bertema kesetaraan dan semangat belajar.', published: true, authorId: admin.id },
+    { title: 'Kegiatan Literasi Sekolah', content: 'Program literasi sekolah terus berjalan dengan baik. Siswa diajak untuk gemar membaca dan menulis melalui berbagai kegiatan kreatif.', published: true, authorId: guru.id },
   ]
 
   for (const n of newsData) {
@@ -108,19 +110,19 @@ async function main() {
   const profiles = [
     { key: 'visi', value: 'Terwujudnya peserta didik yang cerdas, berkarakter, beriman dan bertakwa kepada Tuhan Yang Maha Esa, serta cinta lingkungan dan bangsa.' },
     { key: 'misi', value: JSON.stringify([
-      'Menyelenggarakan pendidikan yang berkualitas dan menyenangkan bagi seluruh peserta didik',
-      'Menanamkan nilai-nilai keimanan dan ketakwaan dalam setiap aktivitas belajar dan kehidupan sehari-hari',
-      'Mendorong peserta didik untuk aktif, kreatif, dan berpikir kritis dalam pembelajaran',
-      'Mengembangkan budaya disiplin, jujur, dan tanggung jawab dalam kehidupan sekolah',
-      'Meningkatkan peran serta orang tua dan masyarakat dalam mendukung kegiatan sekolah',
-      'Menerapkan pembelajaran berbasis lingkungan untuk menumbuhkan kepedulian terhadap alam',
-      'Menyediakan sarana dan prasarana pendidikan yang aman, nyaman, dan ramah anak',
-      'Melaksanakan kegiatan ekstrakurikuler untuk menyalurkan bakat dan minat siswa secara positif',
-      'Menciptakan lingkungan sekolah yang bersih, hijau, dan sehat bagi seluruh warga sekolah',
+      'Menyelenggarakan pendidikan yang berkualitas dan menyenangkan',
+      'Menanamkan nilai-nilai keimanan dan ketakwaan dalam setiap aktivitas',
+      'Mendorong peserta didik untuk aktif, kreatif, dan berpikir kritis',
+      'Mengembangkan budaya disiplin, jujur, dan tanggung jawab',
+      'Meningkatkan peran serta orang tua dan masyarakat',
+      'Menerapkan pembelajaran berbasis lingkungan',
+      'Menyediakan sarana dan prasarana yang aman dan nyaman',
+      'Melaksanakan kegiatan ekstrakurikuler',
+      'Menciptakan lingkungan sekolah yang bersih, hijau, dan sehat',
     ]) },
-    { key: 'sejarah', value: 'SD KARTIKA X-2 didirikan sebagai bagian dari upaya Yayasan Kartika Jaya dalam mendukung pendidikan dasar yang bermutu di Indonesia. Sejak awal berdiri, sekolah ini memiliki komitmen kuat untuk memberikan layanan pendidikan terbaik. Dengan semangat membentuk generasi penerus bangsa yang cerdas dan berkarakter, SD KARTIKA X-2 terus berkembang menjadi sekolah yang unggul dalam akademik maupun pengembangan karakter siswa.' },
-    { key: 'sambutan', value: 'Selamat datang di SD KARTIKA X2, tempat di mana semangat belajar dan nilai-nilai karakter tumbuh bersama. Guru-guru kami yang berdedikasi siap membimbing setiap siswa dengan pendekatan yang penuh kasih sayang dan perhatian. Di SD KARTIKA X2, kami percaya bahwa setiap anak memiliki potensi luar biasa.' },
-    { key: 'alamat', value: 'Jl. Flamboyan No.2 14 6 13, RT.13/RW.6, Pesanggrahan, Kec. Pesanggrahan, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12320' },
+    { key: 'sejarah', value: 'SD KARTIKA X-2 didirikan sebagai bagian dari upaya Yayasan Kartika Jaya dalam mendukung pendidikan dasar yang bermutu di Indonesia.' },
+    { key: 'sambutan', value: 'Selamat datang di SD KARTIKA X2, tempat di mana semangat belajar dan nilai-nilai karakter tumbuh bersama.' },
+    { key: 'alamat', value: 'Jl. Flamboyan No.2 14 6 13, RT.13/RW.6, Pesanggrahan, Kec. Pesanggrahan, Kota Jakarta Selatan, DKI Jakarta 12320' },
     { key: 'telepon', value: '(021) 7362900' },
     { key: 'email', value: 'sdkartikax2@gmail.com' },
     { key: 'instagram', value: 'https://www.instagram.com/sdkartikax2' },
@@ -133,6 +135,84 @@ async function main() {
       where: { key: p.key },
       update: { value: p.value },
       create: p,
+    })
+  }
+
+
+  // Create announcements
+  await prisma.announcement.create({
+    data: {
+      title: 'Pendaftaran PPDB 2025/2026 Dibuka!',
+      content: 'Pendaftaran Peserta Didik Baru untuk tahun ajaran 2025/2026 telah dibuka. Segera daftarkan putra/putri Anda.',
+      isActive: true,
+      priority: 'high',
+      authorId: admin.id,
+    },
+  })
+
+  await prisma.announcement.create({
+    data: {
+      title: 'Libur Akhir Semester',
+      content: 'Libur akhir semester genap dimulai tanggal 21 Juni - 14 Juli 2025.',
+      isActive: true,
+      priority: 'normal',
+      authorId: admin.id,
+    },
+  })
+
+  // Create banners
+  await prisma.banner.create({
+    data: {
+      title: 'Selamat Datang di SD KARTIKA X-2',
+      subtitle: 'Cerdas, Berkarakter, Berprestasi',
+      image: '/banner-hero.jpg',
+      isActive: true,
+      order: 1,
+    },
+  })
+
+  await prisma.banner.create({
+    data: {
+      title: 'PPDB 2025/2026',
+      subtitle: 'Pendaftaran Peserta Didik Baru',
+      image: '/banner-ppdb.jpg',
+      link: '/ppdb',
+      isActive: true,
+      order: 2,
+    },
+  })
+
+  // Create menu items
+  const menuItems = [
+    { label: 'Beranda', href: '/', order: 1, location: 'navbar' },
+    { label: 'Profil Sekolah', href: '/profil', order: 2, location: 'navbar' },
+    { label: 'Guru & Staff', href: '/guru-staff', order: 3, location: 'navbar' },
+    { label: 'Fasilitas', href: '/fasilitas', order: 4, location: 'navbar' },
+    { label: 'Ekstrakurikuler', href: '/ekstrakurikuler', order: 5, location: 'navbar' },
+    { label: 'Berita', href: '/berita', order: 6, location: 'navbar' },
+    { label: 'Kontak', href: '/kontak', order: 7, location: 'navbar' },
+    { label: 'E-Rapor', href: 'https://ijazah.data.kemdikbud.go.id/dasbor/help', order: 1, location: 'topbar', isExternal: true },
+  ]
+
+  for (const m of menuItems) {
+    await prisma.menuItem.create({ data: m })
+  }
+
+  // Create site settings
+  const siteSettings = [
+    { key: 'site_name', value: 'SD KARTIKA X-2', category: 'general' },
+    { key: 'site_tagline', value: 'Cerdas, Berkarakter, Berprestasi', category: 'general' },
+    { key: 'primary_color', value: '#006400', category: 'appearance' },
+    { key: 'secondary_color', value: '#FFD700', category: 'appearance' },
+    { key: 'ppdb_active', value: 'true', category: 'ppdb' },
+    { key: 'ppdb_year', value: '2025/2026', category: 'ppdb' },
+  ]
+
+  for (const s of siteSettings) {
+    await prisma.siteSettings.upsert({
+      where: { key: s.key },
+      update: { value: s.value },
+      create: s,
     })
   }
 
