@@ -58,9 +58,8 @@ export default function Navbar() {
               <Link href="/kontak" className="text-gray-700 hover:text-green-700 font-medium transition">Kontak</Link>
             </div>
 
-            {/* PPDB Button & Login */}
+            {/* PPDB Button */}
             <div className="hidden lg:flex items-center gap-3">
-              <Link href="/login" className="text-sm text-gray-600 hover:text-green-700">Login</Link>
               <Link href="/ppdb" className="bg-red-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-red-700 transition">
                 PPDB
               </Link>
@@ -94,7 +93,6 @@ export default function Navbar() {
               <Link href="/berita" className="block text-gray-700 hover:text-green-700 font-medium" onClick={() => setIsOpen(false)}>Berita</Link>
               <Link href="/kontak" className="block text-gray-700 hover:text-green-700 font-medium" onClick={() => setIsOpen(false)}>Kontak</Link>
               <div className="pt-3 border-t flex gap-3">
-                <Link href="/login" className="text-green-700 font-medium" onClick={() => setIsOpen(false)}>Login</Link>
                 <Link href="/ppdb" className="bg-red-600 text-white px-4 py-2 rounded-full font-semibold text-sm" onClick={() => setIsOpen(false)}>PPDB</Link>
               </div>
             </div>
