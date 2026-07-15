@@ -1,23 +1,27 @@
 import Link from "next/link"
+import Image from "next/image"
 import { prisma } from "@/lib/prisma"
 import { FiBookOpen, FiUsers, FiAward, FiArrowRight } from "react-icons/fi"
 
+async function getHomeData() {
+  try {
+    const [news, staff] = await Promise.all([
+      prisma.news.findMany({ where: { published: true }, orderBy: { createdAt: "desc" }, take: 3 }),
+      prisma.staff.findMany({ where: { category: "guru" }, orderBy: { order: "asc" }, take: 6 }),
+    ])
+    return { news, staff }
+  } catch {
+    return { news: [], staff: [] }
+  }
+}
+
 export default async function HomePage() {
-  const news = await prisma.news.findMany({
-    where: { published: true },
-    orderBy: { createdAt: "desc" },
-    take: 3,
-  })
-  const staff = await prisma.staff.findMany({
-    where: { category: "guru" },
-    orderBy: { order: "asc" },
-    take: 6,
-  })
+  const { news, staff } = await getHomeData()
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative min-h-[600px] flex items-center justify-center bg-gradient-to-br from-green-900 via-green-800 to-green-700 overflow-hidden">
+      {/* Hero Section - Dark Green Gradient */}
+      <section className="relative min-h-[550px] flex items-center justify-center bg-gradient-to-br from-green-900 via-green-800 to-green-700 overflow-hidden">
         <div className="absolute inset-0 bg-black/30"></div>
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-10 w-72 h-72 bg-yellow-400 rounded-full blur-3xl"></div>
@@ -109,7 +113,7 @@ export default async function HomePage() {
             </div>
             <div className="bg-gradient-to-br from-green-200 to-green-300 rounded-2xl p-8 h-80 flex items-center justify-center">
               <div className="text-center">
-                <div className="w-24 h-24 bg-green-700 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-3xl font-bold">SK</div>
+                <Image src="/images/logo-sekolah.svg" alt="SD KARTIKA X-2" width={96} height={96} className="mx-auto mb-4" />
                 <p className="text-green-800 font-semibold text-xl">SD KARTIKA X-2</p>
                 <p className="text-green-700">Jakarta Selatan</p>
               </div>
@@ -119,33 +123,35 @@ export default async function HomePage() {
       </section>
 
       {/* Teachers Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-4">Tenaga Pendidik</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">Guru-guru yang berdedikasi siap membimbing setiap siswa dengan pendekatan yang penuh kasih sayang dan perhatian.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {staff.map((s) => (
-              <div key={s.id} className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition group">
-                <div className="w-16 h-16 bg-green-700 rounded-full flex items-center justify-center text-white font-bold text-lg mb-4 group-hover:bg-yellow-500 transition">
-                  {s.name.charAt(0)}
+      {staff.length > 0 && (
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-4">Tenaga Pendidik</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">Guru-guru yang berdedikasi siap membimbing setiap siswa dengan pendekatan yang penuh kasih sayang dan perhatian.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {staff.map((s) => (
+                <div key={s.id} className="bg-gray-50 rounded-xl p-6 hover:shadow-lg transition group">
+                  <div className="w-16 h-16 bg-green-700 rounded-full flex items-center justify-center text-white font-bold text-lg mb-4 group-hover:bg-yellow-500 transition">
+                    {s.name.charAt(0)}
+                  </div>
+                  <h3 className="font-semibold text-gray-800 mb-1">{s.name}</h3>
+                  <p className="text-sm text-green-700 mb-2">{s.position}</p>
+                  {s.quote && (
+                    <p className="text-xs text-gray-500 italic">&ldquo;{s.quote}&rdquo;</p>
+                  )}
                 </div>
-                <h3 className="font-semibold text-gray-800 mb-1">{s.name}</h3>
-                <p className="text-sm text-green-700 mb-2">{s.position}</p>
-                {s.quote && (
-                  <p className="text-xs text-gray-500 italic">&ldquo;{s.quote}&rdquo;</p>
-                )}
-              </div>
-            ))}
+              ))}
+            </div>
+            <div className="text-center mt-8">
+              <Link href="/guru-staff" className="inline-flex items-center gap-2 text-green-700 font-semibold hover:text-green-800">
+                Lihat Semua Guru & Staff <FiArrowRight />
+              </Link>
+            </div>
           </div>
-          <div className="text-center mt-8">
-            <Link href="/guru-staff" className="inline-flex items-center gap-2 text-green-700 font-semibold hover:text-green-800">
-              Lihat Semua Guru & Staff <FiArrowRight />
-            </Link>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Quote Section */}
       <section className="py-16 bg-gradient-to-r from-green-800 to-green-700 text-white">
@@ -160,36 +166,38 @@ export default async function HomePage() {
       </section>
 
       {/* News Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-4">Berita Sekolah</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">Update terkini seputar kegiatan belajar mengajar, agenda penting, dan informasi terbaru dari sekolah.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {news.map((n) => (
-              <article key={n.id} className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition group">
-                <div className="h-48 bg-gradient-to-br from-green-200 to-green-300 flex items-center justify-center">
-                  <FiBookOpen className="text-green-700" size={48} />
-                </div>
-                <div className="p-6">
-                  <h3 className="font-semibold text-gray-800 mb-2 group-hover:text-green-700 transition">{n.title}</h3>
-                  <p className="text-sm text-gray-500 line-clamp-3">{n.content}</p>
-                  <div className="mt-4 flex justify-between items-center">
-                    <span className="text-xs text-gray-400">{new Date(n.createdAt).toLocaleDateString('id-ID')}</span>
-                    <Link href={`/berita/${n.id}`} className="text-sm text-green-700 font-medium hover:underline">Baca &rarr;</Link>
+      {news.length > 0 && (
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-green-800 mb-4">Berita Sekolah</h2>
+              <p className="text-gray-600 max-w-2xl mx-auto">Update terkini seputar kegiatan belajar mengajar, agenda penting, dan informasi terbaru dari sekolah.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {news.map((n) => (
+                <article key={n.id} className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition group">
+                  <div className="h-48 bg-gradient-to-br from-green-200 to-green-300 flex items-center justify-center">
+                    <FiBookOpen className="text-green-700" size={48} />
                   </div>
-                </div>
-              </article>
-            ))}
+                  <div className="p-6">
+                    <h3 className="font-semibold text-gray-800 mb-2 group-hover:text-green-700 transition">{n.title}</h3>
+                    <p className="text-sm text-gray-500 line-clamp-3">{n.content}</p>
+                    <div className="mt-4 flex justify-between items-center">
+                      <span className="text-xs text-gray-400">{new Date(n.createdAt).toLocaleDateString('id-ID')}</span>
+                      <Link href={`/berita/${n.id}`} className="text-sm text-green-700 font-medium hover:underline">Baca &rarr;</Link>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <div className="text-center mt-8">
+              <Link href="/berita" className="inline-flex items-center gap-2 bg-green-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-800 transition">
+                Lihat Semua Berita <FiArrowRight />
+              </Link>
+            </div>
           </div>
-          <div className="text-center mt-8">
-            <Link href="/berita" className="inline-flex items-center gap-2 bg-green-700 text-white px-6 py-3 rounded-full font-semibold hover:bg-green-800 transition">
-              Lihat Semua Berita <FiArrowRight />
-            </Link>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   )
 }

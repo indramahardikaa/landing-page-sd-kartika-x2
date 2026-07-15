@@ -1,18 +1,15 @@
 import { prisma } from "@/lib/prisma"
 
 export default async function GuruStaffPage() {
-  const guru = await prisma.staff.findMany({
-    where: { category: "guru" },
-    orderBy: { order: "asc" },
-  })
-  const staff = await prisma.staff.findMany({
-    where: { category: "staff" },
-    orderBy: { order: "asc" },
-  })
+  let guru: any[] = []
+  let staffList: any[] = []
+  try {
+    guru = await prisma.staff.findMany({ where: { category: "guru" }, orderBy: { order: "asc" } })
+    staffList = await prisma.staff.findMany({ where: { category: "staff" }, orderBy: { order: "asc" } })
+  } catch {}
 
   return (
     <>
-      {/* Hero */}
       <section className="bg-gradient-to-br from-green-800 to-green-700 text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Guru dan Staff</h1>
@@ -61,7 +58,7 @@ export default async function GuruStaffPage() {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-green-800 mb-8 text-center">Staff Tata Usaha</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {staff.map((s) => (
+            {staffList.map((s) => (
               <div key={s.id} className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
                 <div className="w-14 h-14 bg-yellow-100 text-yellow-700 rounded-full flex items-center justify-center font-bold text-lg mb-4">
                   {s.name.charAt(0)}

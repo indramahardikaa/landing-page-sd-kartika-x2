@@ -6,19 +6,26 @@ export default async function DashboardPage() {
   const session = await auth()
   const isAdmin = (session?.user as any)?.role === "admin"
 
-  const [newsCount, staffCount, facilityCount, extraCount, messageCount] = await Promise.all([
-    prisma.news.count(),
-    prisma.staff.count(),
-    prisma.facility.count(),
-    prisma.extracurricular.count(),
-    prisma.contact.count({ where: { isRead: false } }),
-  ])
+  let newsCount = 0, staffCount = 0, facilityCount = 0, extraCount = 0, messageCount = 0
+  let recentNews: any[] = []
 
-  const recentNews = await prisma.news.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 5,
-    include: { author: { select: { name: true } } },
-  })
+  try {
+    ;[newsCount, staffCount, facilityCount, extraCount, messageCount] = await Promise.all([
+      prisma.news.count(),
+      prisma.staff.count(),
+      prisma.facility.count(),
+      prisma.extracurricular.count(),
+      prisma.contact.count({ where: { isRead: false } }),
+    ])
+
+    recentNews = await prisma.news.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 5,
+      include: { author: { select: { name: true } } },
+    })
+  } catch (error) {
+    console.error("Database error:", error)
+  }
 
   return (
     <div>

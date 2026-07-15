@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { FiInstagram, FiYoutube } from "react-icons/fi"
 import { FaTiktok } from "react-icons/fa"
 
@@ -10,9 +11,7 @@ export default function Footer() {
           {/* About */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-12 h-12 bg-green-700 rounded-full flex items-center justify-center text-white font-bold">
-                SK
-              </div>
+              <Image src="/images/logo-sekolah.svg" alt="Logo" width={48} height={48} className="rounded-full" />
               <h3 className="text-white font-bold text-lg">SD KARTIKA X-2</h3>
             </div>
             <p className="text-sm leading-relaxed">

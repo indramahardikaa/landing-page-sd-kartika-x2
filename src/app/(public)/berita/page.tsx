@@ -3,15 +3,17 @@ import Link from "next/link"
 import { FiBookOpen } from "react-icons/fi"
 
 export default async function BeritaPage() {
-  const news = await prisma.news.findMany({
-    where: { published: true },
-    orderBy: { createdAt: "desc" },
-    include: { author: { select: { name: true } } },
-  })
+  let news: any[] = []
+  try {
+    news = await prisma.news.findMany({
+      where: { published: true },
+      orderBy: { createdAt: "desc" },
+      include: { author: { select: { name: true } } },
+    })
+  } catch {}
 
   return (
     <>
-      {/* Hero */}
       <section className="bg-gradient-to-br from-green-800 to-green-700 text-white py-20">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Berita Sekolah</h1>
@@ -21,7 +23,6 @@ export default async function BeritaPage() {
         </div>
       </section>
 
-      {/* News Grid */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           {news.length === 0 ? (

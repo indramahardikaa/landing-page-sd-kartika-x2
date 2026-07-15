@@ -5,10 +5,13 @@ import { FiArrowLeft } from "react-icons/fi"
 
 export default async function BeritaDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const news = await prisma.news.findUnique({
-    where: { id },
-    include: { author: { select: { name: true } } },
-  })
+  let news: any = null
+  try {
+    news = await prisma.news.findUnique({
+      where: { id },
+      include: { author: { select: { name: true } } },
+    })
+  } catch {}
 
   if (!news || !news.published) notFound()
 
